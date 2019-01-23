@@ -47,7 +47,7 @@ Vagrant.configure("2") do |config|
   config.hostmanager.ignore_private_ip = false
 
   config.vm.provision "shell", inline: <<-SHELL
-    # bash -c 'echo "export TZ=Asia/Shanghai" > /etc/profile.d/tz.sh'
+    bash -c 'echo "export TZ=UTC0" > /etc/profile.d/tz.sh'
     
     setenforce 0
     sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
