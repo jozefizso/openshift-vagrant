@@ -42,7 +42,8 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 openshift_master_htpasswd_users={'admin': '$apr1$/fCPOjy.$H2jARnMZWwe8yYfLfgbou1'}
 
 openshift_disable_check=disk_availability,memory_availability,docker_storage,docker_image_availability
-openshift_docker_options=" --selinux-enabled --log-driver=journald --storage-driver=overlay --registry-mirror=http://4a0fee72.m.daocloud.io "
+# --registry-mirror=http://4a0fee72.m.daocloud.io 
+openshift_docker_options=" --selinux-enabled --log-driver=journald --storage-driver=overlay "
 
 #
 # Author's Note
