@@ -1,0 +1,14 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# script files must have Unix-style newlines
+[*.sh]
+end_of_line = lf
+insert_final_newline = false
+
+# ansible config files must have Unix-style newlines
+[ansible-hosts]
+end_of_line = lf
+insert_final_newline = false
