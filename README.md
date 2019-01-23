@@ -17,15 +17,15 @@ The `OpenShift Vagrant` project aims to make it easy to bring up a real OKD clus
 
 Currently this project pre-configured and support 3 major versions of the OKD, which are
 
-- [OKD v3.11](https://github.com/openshift/origin/releases/tag/v3.11.0)
-- [OKD v3.10 (default)](https://github.com/openshift/origin/releases/tag/v3.10.0)
+- [OKD v3.11 (default)](https://github.com/openshift/origin/releases/tag/v3.11.0)
+- [OKD v3.10](https://github.com/openshift/origin/releases/tag/v3.10.0)
 - [OKD v3.9](https://github.com/openshift/origin/releases/tag/v3.9.0)
 - [OKD v3.7](https://github.com/openshift/origin/releases/tag/v3.7.2)
 - [OKD v3.6](https://github.com/openshift/origin/releases/tag/v3.6.1)
 
 But, it's very easy to customize the respected ansible hosts file in order to support other incoming major versions.
 
-The `Vagrantfile` uses Origin `3.10` and openshift-ansible `release-3.10` branch by default. Feel free to adjust your versions by updating the following 2 variables in Vagrantfile:
+The `Vagrantfile` uses Origin `3.11` and openshift-ansible `release-3.11` branch by default. Feel free to adjust your versions by updating the following 2 variables in Vagrantfile:
 
 1. `OPENSHIFT_RELEASE`
 2. `OPENSHIFT_ANSIBLE_BRANCH`
