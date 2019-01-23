@@ -58,6 +58,7 @@ Checkout the table below for more details:
 ### Bring Vagrant Up
 
 ```bash
+$ vagrant plugin install vagrant-hostmanager
 $ vagrant up
 ```
 
