@@ -79,9 +79,7 @@ $ vagrant ssh master -c 'ansible-playbook /home/vagrant/openshift-ansible/playbo
 Run the following command for origin 3.8 or above:
 
 ```bash
-vagrant ssh master \
-        -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/prerequisites.yml &&
-            ansible-playbook /home/vagrant/openshift-ansible/playbooks/deploy_cluster.yml'
+$ vagrant ssh master -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/prerequisites.yml && ansible-playbook /home/vagrant/openshift-ansible/playbooks/deploy_cluster.yml'
 ```
 
 ### `oc-up.sh`
