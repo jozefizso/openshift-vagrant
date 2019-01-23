@@ -78,6 +78,11 @@ EOF
     vb.cpus   = "1"
   end
 
+  config.vm.provider "vmware_desktop" do |v|
+    v.vmx["memsize"] = "1024"
+    v.vmx["numvcpus"] = "1"
+  end
+
   # Define nodes
   (1..2).each do |i|
     config.vm.define "node0#{i}" do |node|
@@ -109,6 +114,10 @@ EOF
     #
     node.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
+    end
+
+    config.vm.provider "vmware_desktop" do |v|
+      v.vmx["memsize"] = "2048"
     end
 
     node.vm.provision "shell", inline: <<-SHELL
