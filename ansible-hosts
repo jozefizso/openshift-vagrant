@@ -38,8 +38,8 @@ openshift_release='{{OPENSHIFT_RELEASE}}'
 
 # uncomment the following to enable htpasswd authentication; defaults to DenyAllPasswordIdentityProvider
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'{{HTPASSWORD_FILENAME}}}]
-# Default login account: admin / handhand
-openshift_master_htpasswd_users={'admin': '$apr1$gfaL16Jf$c.5LAvg3xNDVQTkk6HpGB1'}
+# Default login account: admin / admin
+openshift_master_htpasswd_users={'admin': '$apr1$/fCPOjy.$H2jARnMZWwe8yYfLfgbou1'}
 
 openshift_disable_check=disk_availability,memory_availability,docker_storage,docker_image_availability
 openshift_docker_options=" --selinux-enabled --log-driver=journald --storage-driver=overlay --registry-mirror=http://4a0fee72.m.daocloud.io "

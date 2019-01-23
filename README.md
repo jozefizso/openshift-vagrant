@@ -92,6 +92,6 @@ $ ./oc-up.sh
 
 ### Open Web Console
 
-In browser of your host, open the following page: https://master.example.com:8443/ and you should see OpenShift Web Console login page. The default login account is **admin/handhand**
+In browser of your host, open the following page: https://master.example.com:8443/ and you should see OpenShift Web Console login page. The default login account is **admin/admin**
 
 *Have fun with OKD and Vagrant :p*
