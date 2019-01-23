@@ -21,6 +21,8 @@ OPENSHIFT_ANSIBLE_BRANCH = "release-#{OPENSHIFT_RELEASE}"
 NETWORK_BASE = "192.168.150"
 INTEGRATION_START_SEGMENT = 101
 
+VAGRANT_PROVIDER_NAME = "vmware_desktop"
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -158,16 +160,18 @@ EOF
     SHELL
 
     # Deploy private keys of each node to master
-    if File.exist?(".vagrant/machines/master/virtualbox/private_key")
-      node.vm.provision "master-key", type: "file", run: "never", source: ".vagrant/machines/master/virtualbox/private_key", destination: "/home/vagrant/.ssh/master.key"
+    if File.exist?(".vagrant/machines/master/#{VAGRANT_PROVIDER_NAME}/private_key")
+      node.vm.provision "master-key", type: "file", run: "never", source: ".vagrant/machines/master/#{VAGRANT_PROVIDER_NAME}/private_key", destination: "/home/vagrant/.ssh/master.key"
     end
 
-    if File.exist?(".vagrant/machines/node01/virtualbox/private_key")
-      node.vm.provision "node01-key", type: "file", run: "never", source: ".vagrant/machines/node01/virtualbox/private_key", destination: "/home/vagrant/.ssh/node01.key"
+    if File.exist?(".vagrant/machines/node01/#{VAGRANT_PROVIDER_NAME}/private_key")
+      node.vm.provision "node01-key", type: "file", run: "never", source: ".vagrant/machines/node01/#{VAGRANT_PROVIDER_NAME}/private_key", destination: "/home/vagrant/.ssh/node01.key"
     end
 
-    if File.exist?(".vagrant/machines/node02/virtualbox/private_key")
-      node.vm.provision "node02-key", type: "file", run: "never", source: ".vagrant/machines/node02/virtualbox/private_key", destination: "/home/vagrant/.ssh/node02.key"
+    if File.exist?(".vagrant/machines/node02/#{VAGRANT_PROVIDER_NAME}/private_key")
+      node.vm.provision "node02-key", type: "file", run: "never", source: ".vagrant/machines/node02/#{VAGRANT_PROVIDER_NAME}/private_key", destination: "/home/vagrant/.ssh/node02.key"
     end
+
+    node.vm.provision "fix-keys", type: "shell", run: "never", privileged: false, inline: "chmod 600 ~/.ssh/*.key"
   end
 end

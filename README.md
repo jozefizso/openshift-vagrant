@@ -65,7 +65,7 @@ $ vagrant up
 ### Provisioning Private Keys
 
 ```bash
-$ vagrant provision --provision-with master-key,node01-key,node02-key
+$ vagrant provision --provision-with master-key,node01-key,node02-key,fix-keys
 ```
 
 ### Install Origin Cluster Using Ansible
