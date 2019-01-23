@@ -74,12 +74,12 @@ EOF
   SHELL
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "1024"
+    vb.memory = "2048"
     vb.cpus   = "1"
   end
 
   config.vm.provider "vmware_desktop" do |v|
-    v.vmx["memsize"] = "1024"
+    v.vmx["memsize"] = "2048"
     v.vmx["numvcpus"] = "1"
   end
 
@@ -113,11 +113,12 @@ EOF
     # for mor details.
     #
     node.vm.provider "virtualbox" do |vb|
-      vb.memory = "2048"
+      vb.memory = "4096"
     end
 
     config.vm.provider "vmware_desktop" do |v|
-      v.vmx["memsize"] = "2048"
+      v.vmx["memsize"] = "4096"
+      v.vmx["numvcpus"] = "4"
     end
 
     node.vm.provision "shell", inline: <<-SHELL
