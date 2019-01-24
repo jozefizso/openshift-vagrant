@@ -124,7 +124,7 @@ EOF
       vb.memory = "4096"
     end
 
-    config.vm.provider "vmware_desktop" do |v|
+    node.vm.provider "vmware_desktop" do |v|
       v.vmx["memsize"] = "4096"
       v.vmx["numvcpus"] = "4"
     end
