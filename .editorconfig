@@ -6,9 +6,9 @@ root = true
 # script files must have Unix-style newlines
 [*.sh]
 end_of_line = lf
-insert_final_newline = false
+insert_final_newline = true
 
 # ansible config files must have Unix-style newlines
 [ansible-hosts]
 end_of_line = lf
-insert_final_newline = false
+insert_final_newline = true
