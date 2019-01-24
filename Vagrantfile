@@ -18,8 +18,9 @@
 
 OPENSHIFT_RELEASE = "3.11"
 OPENSHIFT_ANSIBLE_BRANCH = "release-#{OPENSHIFT_RELEASE}"
-NETWORK_BASE = "192.168.150"
-INTEGRATION_START_SEGMENT = 101
+NETWORK_BASE = "10.16.35"
+NETWORK_NETMASK = "255.255.252.0"
+INTEGRATION_START_SEGMENT = 155
 
 VAGRANT_PROVIDER_NAME = "vmware_desktop"
 
@@ -47,6 +48,13 @@ Vagrant.configure("2") do |config|
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
   config.hostmanager.ignore_private_ip = false
+  config.hostmanager.ip_resolver = proc do |machine|
+    result = ""
+    machine.communicate.execute("ip address show eth1") do |type, data|
+        result << data if type == :stdout
+    end
+    (ip = /inet (\d+\.\d+\.\d+\.\d+)/.match(result)) && ip[1]
+  end
 
   config.vm.provision "shell", inline: <<-SHELL
     bash -c 'echo "export TZ=UTC0" > /etc/profile.d/tz.sh'
@@ -86,7 +94,7 @@ EOF
   # Define nodes
   (1..2).each do |i|
     config.vm.define "node0#{i}" do |node|
-      node.vm.network "private_network", ip: "#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT + i}"
+      node.vm.network "public_network", ip: "#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT + i}", netmask: NETWORK_NETMASK
       node.vm.hostname = "node0#{i}.example.com"
 
       if "#{i}" == "1"
@@ -97,7 +105,7 @@ EOF
 
   # Define master
   config.vm.define "master", primary: true do |node|
-    node.vm.network "private_network", ip: "#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT}"
+    node.vm.network "public_network", ip: "#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT}", netmask: NETWORK_NETMASK
     node.vm.hostname = "master.example.com"
     node.hostmanager.aliases = %w(etcd.example.com nfs.example.com)
     
@@ -154,6 +162,9 @@ EOF
       cat /vagrant/ansible-hosts \
         | sed "s/{{OPENSHIFT_RELEASE}}/#{OPENSHIFT_RELEASE}/g" \
         | sed "s/{{NETWORK_BASE}}/#{NETWORK_BASE}/g" \
+        | sed "s/{{NETWORK_MASTER_IP}}/#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT}/g" \
+        | sed "s/{{NETWORK_NODE01_IP}}/#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT + 1}/g" \
+        | sed "s/{{NETWORK_NODE02_IP}}/#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT + 2}/g" \
         | sed "s/{{NODE_GROUP_MASTER}}/${NODE_GROUP_MASTER}/g" \
         | sed "s/{{NODE_GROUP_INFRA}}/${NODE_GROUP_INFRA}/g" \
         | sed "s/{{NODE_GROUP_COMPUTE}}/${NODE_GROUP_COMPUTE}/g" \

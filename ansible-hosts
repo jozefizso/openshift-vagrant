@@ -69,11 +69,11 @@ openshift_master_default_subdomain=openshift.example.com
 
 # host group for masters
 [masters]
-master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BASE}}.101 ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key"
+master.example.com openshift_ip={{NETWORK_MASTER_IP}} openshift_host={{NETWORK_MASTER_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key"
 
 # host group for etcd
 [etcd]
-master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BASE}}.101 ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key"
+master.example.com openshift_ip={{NETWORK_MASTER_IP}} openshift_host={{NETWORK_MASTER_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key"
 #
 # host group for nodes, includes region info
 # For openshift_node_labels strategies, the following reference links might be helpful
@@ -93,6 +93,6 @@ master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BA
 # from 'region=infra' to 'node-role.kubernetes.io/infra=true'
 #
 [nodes]
-master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BASE}}.101 ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key" openshift_schedulable=true {{NODE_GROUP_MASTER_INFRA}}
-node01.example.com openshift_ip={{NETWORK_BASE}}.102 openshift_host={{NETWORK_BASE}}.102 ansible_ssh_private_key_file="/home/vagrant/.ssh/node01.key" openshift_schedulable=true {{NODE_GROUP_COMPUTE}}
-node02.example.com openshift_ip={{NETWORK_BASE}}.103 openshift_host={{NETWORK_BASE}}.103 ansible_ssh_private_key_file="/home/vagrant/.ssh/node02.key" openshift_schedulable=true {{NODE_GROUP_COMPUTE}}
+master.example.com openshift_ip={{NETWORK_MASTER_IP}} openshift_host={{NETWORK_MASTER_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key" openshift_schedulable=true {{NODE_GROUP_MASTER_INFRA}}
+node01.example.com openshift_ip={{NETWORK_NODE01_IP}} openshift_host={{NETWORK_NODE01_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/node01.key" openshift_schedulable=true {{NODE_GROUP_COMPUTE}}
+node02.example.com openshift_ip={{NETWORK_NODE02_IP}} openshift_host={{NETWORK_NODE02_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/node02.key" openshift_schedulable=true {{NODE_GROUP_COMPUTE}}
