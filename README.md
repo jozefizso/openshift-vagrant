@@ -82,6 +82,12 @@ Run the following command for origin 3.8 or above:
 $ vagrant ssh master -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/prerequisites.yml && ansible-playbook /home/vagrant/openshift-ansible/playbooks/deploy_cluster.yml'
 ```
 
+Reconfigure the **master** node:
+
+```bash
+$ vagrant reload master --provision-with ansible-hosts
+```
+
 ### `oc-up.sh`
 
 The above 3 steps have been grouped together as one script for you. To bring your cluster up, just use the following command:

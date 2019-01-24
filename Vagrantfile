@@ -142,8 +142,20 @@ EOF
       fi
       
       git clone -b #{OPENSHIFT_ANSIBLE_BRANCH} https://github.com/openshift/openshift-ansible.git /home/vagrant/openshift-ansible
+      
+      mkdir -p /home/vagrant/.ssh
+      bash -c 'echo "Host *" >> /home/vagrant/.ssh/config'
+      bash -c 'echo "StrictHostKeyChecking no" >> /home/vagrant/.ssh/config'
+      chmod 600 /home/vagrant/.ssh/config
+      chown -R vagrant:vagrant /home/vagrant
+    SHELL
 
-      mv /etc/ansible/hosts /etc/ansible/hosts.bak
+
+    node.vm.provision "ansible-hosts", type: "shell", inline: <<-SHELL
+      # Sourcing common functions
+      . /vagrant/common.sh
+
+      mv -f /etc/ansible/hosts /etc/ansible/hosts.bak
       
       # Pre-define all possible openshift node groups
       NODE_GROUP_MASTER="openshift_node_group_name='node-config-master'"
@@ -172,12 +184,6 @@ EOF
         | sed "s/{{NODE_GROUP_ALLINONE}}/${NODE_GROUP_ALLINONE}/g" \
         | sed "s~{{HTPASSWORD_FILENAME}}~${HTPASSWORD_FILENAME}~g" \
         > /etc/ansible/hosts
-      
-      mkdir -p /home/vagrant/.ssh
-      bash -c 'echo "Host *" >> /home/vagrant/.ssh/config'
-      bash -c 'echo "StrictHostKeyChecking no" >> /home/vagrant/.ssh/config'
-      chmod 600 /home/vagrant/.ssh/config
-      chown -R vagrant:vagrant /home/vagrant
     SHELL
 
     # Deploy private keys of each node to master
