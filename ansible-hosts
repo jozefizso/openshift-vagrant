@@ -65,15 +65,22 @@ openshift_router_selector='node-role.kubernetes.io/infra=true'
 openshift_registry_selector='node-role.kubernetes.io/infra=true'
 
 # default subdomain to use for exposed routes
-openshift_master_default_subdomain=openshift.example.com
+openshift_master_default_subdomain=app.okd.lab
+
+# This variable overrides the host name for the cluster, which defaults to the host name of the master.
+openshift_master_cluster_hostname=master.okd.lab
+
+# This variable overrides the public host name for the cluster, which defaults to the host name of the master.
+# If you use an external load balancer, specify the address of the external load balancer.
+openshift_master_cluster_public_hostname=openshift.okd.lab
 
 # host group for masters
 [masters]
-master.example.com openshift_ip={{NETWORK_MASTER_IP}} openshift_host={{NETWORK_MASTER_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key"
+master.okd.lab openshift_ip={{NETWORK_MASTER_IP}} openshift_host={{NETWORK_MASTER_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key"
 
 # host group for etcd
 [etcd]
-master.example.com openshift_ip={{NETWORK_MASTER_IP}} openshift_host={{NETWORK_MASTER_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key"
+master.okd.lab openshift_ip={{NETWORK_MASTER_IP}} openshift_host={{NETWORK_MASTER_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key"
 #
 # host group for nodes, includes region info
 # For openshift_node_labels strategies, the following reference links might be helpful
@@ -93,6 +100,6 @@ master.example.com openshift_ip={{NETWORK_MASTER_IP}} openshift_host={{NETWORK_M
 # from 'region=infra' to 'node-role.kubernetes.io/infra=true'
 #
 [nodes]
-master.example.com openshift_ip={{NETWORK_MASTER_IP}} openshift_host={{NETWORK_MASTER_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key" openshift_schedulable=true {{NODE_GROUP_MASTER_INFRA}}
-node01.example.com openshift_ip={{NETWORK_NODE01_IP}} openshift_host={{NETWORK_NODE01_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/node01.key" openshift_schedulable=true {{NODE_GROUP_COMPUTE}}
-node02.example.com openshift_ip={{NETWORK_NODE02_IP}} openshift_host={{NETWORK_NODE02_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/node02.key" openshift_schedulable=true {{NODE_GROUP_COMPUTE}}
+master.okd.lab openshift_ip={{NETWORK_MASTER_IP}} openshift_host={{NETWORK_MASTER_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key" openshift_schedulable=true {{NODE_GROUP_MASTER_INFRA}}
+node01.okd.lab openshift_ip={{NETWORK_NODE01_IP}} openshift_host={{NETWORK_NODE01_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/node01.key" openshift_schedulable=true {{NODE_GROUP_COMPUTE}}
+node02.okd.lab openshift_ip={{NETWORK_NODE02_IP}} openshift_host={{NETWORK_NODE02_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/node02.key" openshift_schedulable=true {{NODE_GROUP_COMPUTE}}

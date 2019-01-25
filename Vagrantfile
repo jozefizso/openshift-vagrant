@@ -41,7 +41,7 @@ Vagrant.configure("2") do |config|
 
   # if Vagrant.has_plugin?('landrush')
   #   config.landrush.enabled = true
-  #   config.landrush.tld = 'example.com'
+  #   config.landrush.tld = 'okd.lab'
   #   config.landrush.guest_redirect_dns = false
   # end
 
@@ -95,10 +95,10 @@ EOF
   (1..2).each do |i|
     config.vm.define "node0#{i}" do |node|
       node.vm.network "public_network", ip: "#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT + i}", netmask: NETWORK_NETMASK
-      node.vm.hostname = "node0#{i}.example.com"
+      node.vm.hostname = "node0#{i}.okd.lab"
 
       if "#{i}" == "1"
-        node.hostmanager.aliases = %w(lb.example.com)
+        node.hostmanager.aliases = %w(lb.okd.lab)
       end
     end
   end
@@ -106,8 +106,8 @@ EOF
   # Define master
   config.vm.define "master", primary: true do |node|
     node.vm.network "public_network", ip: "#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT}", netmask: NETWORK_NETMASK
-    node.vm.hostname = "master.example.com"
-    node.hostmanager.aliases = %w(etcd.example.com nfs.example.com)
+    node.vm.hostname = "master.okd.lab"
+    node.hostmanager.aliases = %w(openshift.okd.lab master-internal.okd.lab etcd.okd.lab nfs.okd.lab)
     
     # 
     # Memory of the master node must be allocated at least 2GB in order to
