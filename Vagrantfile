@@ -131,6 +131,9 @@ EOF
 
     node.vm.provision "shell", inline: <<-SHELL
       yum -y install git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct
+
+      # required when using own certificates
+      yum -y install pyOpenSSL
       
       # Sourcing common functions
       . /vagrant/common.sh
@@ -149,7 +152,6 @@ EOF
       chmod 600 /home/vagrant/.ssh/config
       chown -R vagrant:vagrant /home/vagrant
     SHELL
-
 
     node.vm.provision "ansible-hosts", type: "shell", inline: <<-SHELL
       # Sourcing common functions
@@ -184,6 +186,11 @@ EOF
         | sed "s/{{NODE_GROUP_ALLINONE}}/${NODE_GROUP_ALLINONE}/g" \
         | sed "s~{{HTPASSWORD_FILENAME}}~${HTPASSWORD_FILENAME}~g" \
         > /etc/ansible/hosts
+    SHELL
+
+    node.vm.provision "ca-key", type: "shell", inline: <<-SHELL
+      cp -f /vagrant/okd_root_ca.key /etc/ansible/okd_root_ca.key
+      cp -f /vagrant/okd_root_ca.crt /etc/ansible/okd_root_ca.crt
     SHELL
 
     # Deploy private keys of each node to master

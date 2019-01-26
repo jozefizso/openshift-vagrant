@@ -74,6 +74,14 @@ openshift_master_cluster_hostname=master.okd.lab
 # If you use an external load balancer, specify the address of the external load balancer.
 openshift_master_cluster_public_hostname=openshift.okd.lab
 
+# Provide the single certificate and key that signs the OKD certificates.
+# If the CA certificate is issued by an intermediate CA, set the openshift_additional_ca variable
+openshift_master_ca_certificate={'certfile': '/etc/ansible/okd_root_ca.crt', 'keyfile': '/etc/ansible/okd_root_ca.key'}
+
+# If the certificate for your openshift_master_ca_certificate parameter is signed by an intermediate certificate,
+# provide the bundled certificate that contains the full chain of intermediate and root certificates for the CA.
+#openshift_additional_ca=/etc/ansible/ca-chain.cert.pem
+
 # host group for masters
 [masters]
 master.okd.lab openshift_ip={{NETWORK_MASTER_IP}} openshift_host={{NETWORK_MASTER_IP}} ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key"

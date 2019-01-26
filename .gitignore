@@ -1,1 +1,5 @@
 .vagrant/
+
+# Certificate files for ODK cluster
+*.key
+*.crt
