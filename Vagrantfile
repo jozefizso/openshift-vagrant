@@ -107,7 +107,14 @@ EOF
   config.vm.define "master", primary: true do |node|
     node.vm.network "public_network", ip: "#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT}", netmask: NETWORK_NETMASK
     node.vm.hostname = "master.okd.lab"
-    node.hostmanager.aliases = %w(openshift.okd.lab master-internal.okd.lab etcd.okd.lab nfs.okd.lab)
+    node.hostmanager.aliases = %w(
+      openshift.okd.lab
+      master-internal.okd.lab
+      etcd.okd.lab
+      nfs.okd.lab
+      kibana.okd.lab
+      console.app.okd.lab
+    )
     
     # 
     # Memory of the master node must be allocated at least 2GB in order to
