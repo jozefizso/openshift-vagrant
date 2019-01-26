@@ -41,7 +41,9 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 # Default login account: admin / admin
 openshift_master_htpasswd_users={'admin': '$apr1$/fCPOjy.$H2jARnMZWwe8yYfLfgbou1'}
 
-openshift_disable_check=disk_availability,memory_availability,docker_storage
+# We disable docker_image_availability check because the tool skopeo takes more than 10 seconds to
+# check for images on docker.io, which causes the pre-checkes to fail.
+openshift_disable_check=disk_availability,memory_availability,docker_storage,docker_image_availability
 # --registry-mirror=http://4a0fee72.m.daocloud.io 
 openshift_docker_options=" --selinux-enabled --log-driver=journald --storage-driver=overlay "
 
