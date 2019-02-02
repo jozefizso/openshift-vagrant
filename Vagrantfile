@@ -58,9 +58,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     bash -c 'echo "export TZ=UTC0" > /etc/profile.d/tz.sh'
-    
-    setenforce 0
-    sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
 
     yum -y install docker
     usermod -aG dockerroot vagrant
