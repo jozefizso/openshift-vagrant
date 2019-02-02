@@ -146,7 +146,7 @@ EOF
       . /vagrant/common.sh
       
       if [ "$(version #{OPENSHIFT_RELEASE})" -gt "$(version 3.7)" ]; then
-        yum -y install https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.6.6-1.el7.ans.noarch.rpm
+        yum -y install https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.6.9-1.el7.ans.noarch.rpm
       else
         yum -y install https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.5.9-1.el7.ans.noarch.rpm
       fi
